@@ -184,6 +184,8 @@ std::unique_ptr<TargetInfo> AllocateTarget(const llvm::Triple &Triple,
                                                                        Opts);
     case llvm::Triple::Win32:
       switch (Triple.getEnvironment()) {
+      case llvm::Triple::Cygnus:
+        return std::make_unique<CygwinARM64TargetInfo>(Triple, Opts);
       case llvm::Triple::GNU:
         return std::make_unique<MinGWARM64TargetInfo>(Triple, Opts);
       case llvm::Triple::MSVC:

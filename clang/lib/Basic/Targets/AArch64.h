@@ -342,6 +342,18 @@ public:
   MinGWARM64TargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts);
 };
 
+// ARM64 Cygwin/MSYS target.  Windows ARM64 calling conventions and PE/COFF
+// are retained, but the Unix-facing ABI is LP64 like x86_64 Cygwin.
+class LLVM_LIBRARY_VISIBILITY CygwinARM64TargetInfo
+    : public WindowsARM64TargetInfo {
+public:
+  CygwinARM64TargetInfo(const llvm::Triple &Triple,
+                        const TargetOptions &Opts);
+
+  void getTargetDefines(const LangOptions &Opts,
+                        MacroBuilder &Builder) const override;
+};
+
 class LLVM_LIBRARY_VISIBILITY AArch64beTargetInfo : public AArch64TargetInfo {
 public:
   AArch64beTargetInfo(const llvm::Triple &Triple, const TargetOptions &Opts);
