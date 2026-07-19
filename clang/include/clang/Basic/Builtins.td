@@ -53,10 +53,10 @@ class MSInt16_32Template : Template<["short", "msint32_t"],
                                     ["16",    ""]>;
 
 class MSUInt16_32_64Template :
-    Template<["unsigned short", "unsigned int", "uint64_t"],
+    Template<["unsigned short", "unsigned int", "unsigned long long int"],
              ["16",             "",             "64"]>;
 
-class MSInt32_64Template : Template<["msint32_t", "int64_t"],
+class MSInt32_64Template : Template<["msint32_t", "long long int"],
                                     ["",          "64"]>;
 
 class FloatDoubleTemplate : Template<["float", "double"],
@@ -3020,19 +3020,19 @@ def InterlockedBittestAndReset_rel : MSLangBuiltin {
 def InterlockedBittestAndReset64_acq : MSLangBuiltin {
   let Spellings = ["_interlockedbittestandreset64_acq"];
   let Attributes = [NoThrow];
-  let Prototype = "unsigned char(int64_t volatile*, int64_t)";
+  let Prototype = "unsigned char(long long int volatile*, long long int)";
 }
 
 def InterlockedBittestAndReset64_nf : MSLangBuiltin {
   let Spellings = ["_interlockedbittestandreset64_nf"];
   let Attributes = [NoThrow];
-  let Prototype = "unsigned char(int64_t volatile*, int64_t)";
+  let Prototype = "unsigned char(long long int volatile*, long long int)";
 }
 
 def InterlockedBittestAndReset64_rel : MSLangBuiltin {
   let Spellings = ["_interlockedbittestandreset64_rel"];
   let Attributes = [NoThrow];
-  let Prototype = "unsigned char(int64_t volatile*, int64_t)";
+  let Prototype = "unsigned char(long long int volatile*, long long int)";
 }
 
 def InterlockedBittestAndSet : MSLangBuiltin, MSInt32_64Template {
@@ -3062,19 +3062,19 @@ def InterlockedBittestAndSet_rel : MSLangBuiltin {
 def InterlockedBittestAndSet64_acq : MSLangBuiltin {
   let Spellings = ["_interlockedbittestandset64_acq"];
   let Attributes = [NoThrow];
-  let Prototype = "unsigned char(int64_t volatile*, int64_t)";
+  let Prototype = "unsigned char(long long int volatile*, long long int)";
 }
 
 def InterlockedBittestAndSet64_nf : MSLangBuiltin {
   let Spellings = ["_interlockedbittestandset64_nf"];
   let Attributes = [NoThrow];
-  let Prototype = "unsigned char(int64_t volatile*, int64_t)";
+  let Prototype = "unsigned char(long long int volatile*, long long int)";
 }
 
 def InterlockedBittestAndSet64_rel : MSLangBuiltin {
   let Spellings = ["_interlockedbittestandset64_rel"];
   let Attributes = [NoThrow];
-  let Prototype = "unsigned char(int64_t volatile*, int64_t)";
+  let Prototype = "unsigned char(long long int volatile*, long long int)";
 }
 
 def IsoVolatileLoad : MSLangBuiltin, Int8_16_32_64Template {
@@ -3140,7 +3140,7 @@ def Lrotl : MSLangBuiltin {
 def Rotl64 : MSLangBuiltin {
   let Spellings = ["_rotl64"];
   let Attributes = [NoThrow, Constexpr];
-  let Prototype = "uint64_t(uint64_t, int)";
+  let Prototype = "unsigned long long int(unsigned long long int, int)";
 }
 
 def Rotr8 : MSLangBuiltin {
@@ -3170,7 +3170,7 @@ def Lrotr : MSLangBuiltin {
 def Rotr64 : MSLangBuiltin {
   let Spellings = ["_rotr64"];
   let Attributes = [NoThrow, Constexpr];
-  let Prototype = "uint64_t(uint64_t, int)";
+  let Prototype = "unsigned long long int(unsigned long long int, int)";
 }
 
 def MSva_start : MSLangBuiltin {

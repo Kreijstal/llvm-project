@@ -1858,6 +1858,35 @@ MinGWARM64TargetInfo::MinGWARM64TargetInfo(const llvm::Triple &Triple,
   TheCXXABI.set(TargetCXXABI::GenericAArch64);
 }
 
+CygwinARM64TargetInfo::CygwinARM64TargetInfo(const llvm::Triple &Triple,
+                                             const TargetOptions &Opts)
+    : WindowsARM64TargetInfo(Triple, Opts) {
+  // Cygwin and MSYS expose LP64 even though calls into Win32 use the Windows
+  // ARM64 calling convention.  Match the established x86_64 Cygwin ABI.
+  LongWidth = LongAlign = 64;
+  LongDoubleWidth = LongDoubleAlign = 128;
+  LongDoubleFormat = &llvm::APFloat::IEEEquad();
+  IntMaxType = SignedLong;
+  Int64Type = SignedLong;
+  SizeType = UnsignedLong;
+  PtrDiffType = SignedLong;
+  IntPtrType = SignedLong;
+  WCharType = UnsignedShort;
+  WIntType = UnsignedInt;
+  TheCXXABI.set(TargetCXXABI::GenericAArch64);
+}
+
+void CygwinARM64TargetInfo::getTargetDefines(const LangOptions &Opts,
+                                             MacroBuilder &Builder) const {
+  WindowsARM64TargetInfo::getTargetDefines(Opts, Builder);
+  Builder.defineMacro("__CYGWIN__");
+  Builder.defineMacro("__CYGWIN64__");
+  addCygMingDefines(Opts, Builder);
+  DefineStd(Builder, "unix", Opts);
+  if (Opts.CPlusPlus)
+    Builder.defineMacro("_GNU_SOURCE");
+}
+
 AppleMachOAArch64TargetInfo::AppleMachOAArch64TargetInfo(
     const llvm::Triple &Triple, const TargetOptions &Opts)
     : AppleMachOTargetInfo<AArch64leTargetInfo>(Triple, Opts) {}
